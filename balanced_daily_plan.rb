@@ -62,10 +62,6 @@ class TestBibleStats < Test::Unit::TestCase
   end
 end
 
-__END__
-require 'pp'
-
-
 bible.each do |book,chapters|
   print book.to_s + "\n"
   chapters.each_with_index do |verses, chnum|
