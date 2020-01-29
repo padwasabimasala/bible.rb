@@ -39,6 +39,39 @@ class BibleStats
   end
 end
 
+def div(a,b)
+  whole = (a / b.to_f).floor
+  remain = a - (b * whole)
+  [whole, remain]
+end
+
+#pp div(BibleStats.new().chapter_count, 90)
+
+bible.each do |book,chapters|
+  chapters.each_with_index do |verses, chnum|
+    next if chnum == 0
+    puts [:book, book, :chapter, chnum, :verses, verses.size - 1].join(' ')
+  end
+  break
+end
+
+__END__
+
+bible.each do |book,chapters|
+  print book.to_s + "\n"
+  chapters.each_with_index do |verses, chnum|
+    next if chnum == 0
+    print "chapter: %s\n" % chnum
+    verses.each_with_index do |verse, vnum|
+      next if vnum == 0
+      print "verse: " + vnum.to_s + "\n"
+      print verse + "\n"
+    end
+  end
+  break
+end
+
+
 class TestBibleStats < Test::Unit::TestCase
   def test_book_count
     assert_equal(66, BibleStats.new().book_count)
@@ -62,16 +95,12 @@ class TestBibleStats < Test::Unit::TestCase
   end
 end
 
-bible.each do |book,chapters|
-  print book.to_s + "\n"
-  chapters.each_with_index do |verses, chnum|
-    next if chnum == 0
-    print "chapter: %s\n" % chnum
-    verses.each_with_index do |verse, vnum|
-      next if vnum == 0
-      print "verse: " + vnum.to_s + "\n"
-      print verse + "\n"
-    end
+
+__END__
+class TestDiv < Test::Unit::TestCase
+  def test_div
+    assert_equal([4,0], div(12,3))
   end
-  break
 end
+
+
